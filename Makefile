@@ -1,12 +1,13 @@
-INCLUDE_DIRS = 
-LIB_DIRS = 
-CC=gcc
+INCLUDE_DIRS =
+LIB_DIRS =
+host: CC = gcc
+de1: CC = arm-linux-gnueabihf-gcc
 
 CDEFS=
 CFLAGS= -O3 $(INCLUDE_DIRS) $(CDEFS)
-LIBS= 
+LIBS=
 
-HFILES= 
+HFILES=
 CFILES= exercise1.c
 
 SRCS= ${HFILES} ${CFILES}
@@ -24,6 +25,11 @@ distclean:
 
 exercise1: exercise1.o
 	$(CC) $(LDFLAGS) $(CFLAGS) -o $@ $@.o -lpthread
+
+de1: exercise1
+
+upload: de1
+	scp exercise1 root@192.168.1.8:/home/root/bin
 
 depend:
 
