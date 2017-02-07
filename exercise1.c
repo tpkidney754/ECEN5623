@@ -27,11 +27,12 @@
 #define NSEC_PER_SEC    ( 1000000000 )
 #define CeERROR         ( -1 )
 #define CeOK            ( 0 )
+
 //------------------------------------------------------------------------------
 
 extern void *ProcXXXX_Task1( void *threadp );
-extern void *ProcXXXX_Task2( void *threadp );
-extern void *ProcXXXX_Task3( void *threadp );
+//extern void *ProcXXXX_Task2( void *threadp );
+//extern void *ProcXXXX_Task3( void *threadp );
 
 //------------------------------------------------------------------------------
 
@@ -51,6 +52,7 @@ typedef void *( *TeXXX_ptr_Tasks )( void *threadp );
 
 //------------------------------------------------------------------------------
 
+// Vector table of functions to invoke for each thread created.
 const TeXXXX_Ptr_Tasks VaXXXX_Ptr_Tasks[ CeMaxTasks ] =
 {
    ProcXXXX_Task1,
@@ -58,12 +60,14 @@ const TeXXXX_Ptr_Tasks VaXXXX_Ptr_Tasks[ CeMaxTasks ] =
    ProcXXXX_Task1
 };
 
+// Table of constants for each thread to define schedule operation.
 const TeXXXX_h_ThreadParams VaXXXX_h_ThreadParams[CeMaxTasks] =
 {
    { 0, 2, 1 },
    { 1, 5, 2 },
    { 2, 10, 1 }
 };
+
 //------------------------------------------------------------------------------
 
 // POSIX thread declarations and scheduling attributes
@@ -80,6 +84,9 @@ pthread_attr_t tstThread_sched_attr;
 struct timespec rtclk_resolution;
 
 //------------------------------------------------------------------------------
+// print_scheduler
+//   Print the current schedule policy.
+
 void print_scheduler( void )
 {
    uint32_t schedType;
@@ -103,6 +110,10 @@ void print_scheduler( void )
 }
 
 //------------------------------------------------------------------------------
+// delta_t
+//   Compute the delta between two timespec structures. This function assumes
+//   time values are not monotonic and their may be inversion due to the use
+//   of CLOCK_REALTIME rather than the slower and stable CLOCK_MONOTONIC.
 
 int32_t delta_t( struct timespec *stop, struct timespec *start, struct timespec *delta_t )
 {
@@ -140,6 +151,11 @@ int32_t delta_t( struct timespec *stop, struct timespec *start, struct timespec 
 }
 
 //------------------------------------------------------------------------------
+// ProcXXXX_Task1
+//   Task code used to
+//     1. busy loop for C
+//     2. sleep until T
+//     3. repeat until shutdown time reached
 
 void *ProcXXXX_Task1(void *threadp)
 {
@@ -157,26 +173,32 @@ void *ProcXXXX_Task1(void *threadp)
    struct timespec sleep_time = { 0, 0 };
    struct timespec remaining_time = { 0, 0 };
 
+   // Counter used to track invocations of each thread.
    interval = 0;
 
+   // Compute the T and C interval in seconds.
    int32_t T = CeXXXX_Quantum * VaXXXX_h_ThreadParams->e_Cnt_T;
    int32_t C = CeXXXX_Quantum * VaXXXX_h_ThreadParams->e_Cnt_C;
+
+   // Set the core affinity
    thread = pthread_self( );
    cpucore = sched_getcpu( );
    CPU_ZERO( &cpuset );
    pthread_getaffinity_np( thread, sizeof( cpu_set_t ), &cpuset );
 
-   printf( "Thread %d on core %d, affinity contained:", VaXXXX_h_ThreadParams->e_Idx_Thread, cpucore );
-   for( LeXXXX_Cnt_Index = 0; LeXXXX_Cnt_Index < numberOfProcessors; LeXXXX_Cnt_Index++ )
-   {
-      if( CPU_ISSET( LeXXXX_Cnt_Index, &cpuset ) )
-      {
+   { // Display CPU and core status
+     printf( "Thread %d on core %d, affinity contained:", VaXXXX_h_ThreadParams->e_Idx_Thread, cpucore );
+     for( LeXXXX_Cnt_Index = 0; LeXXXX_Cnt_Index < numberOfProcessors; LeXXXX_Cnt_Index++ )
+     {
+       if( CPU_ISSET( LeXXXX_Cnt_Index, &cpuset ) )
+       {
          printf(" CPU-%d ", LeXXXX_Cnt_Index);
-      }
+       }
+     }
+     printf( "\n" );
    }
 
-   printf( "\n" );
-
+   // Look until the schedule stop time is reached
    do
    {
       interval++;
@@ -259,8 +281,7 @@ int main(int argc, char *argv[])
    int32_t coreid;
    struct timespec task_start_time = {0, 0};
 
-   // Startup
-
+   // Open syslog using the USER facility
    openlog( NULL, LOG_CONS, LOG_USER );
 
    printf( "This system has %d processors configured and %d processors available.\n",
@@ -325,7 +346,7 @@ int main(int argc, char *argv[])
    printf( "rt_max_prio=%d\n", rt_max_prio );
    printf( "rt_min_prio=%d\n", rt_min_prio );
 
-   if( clock_getres( CLOCK_REALTIME, &rtclk_resolution ) == CeERROR )
+   if ( clock_getres( CLOCK_REALTIME, &rtclk_resolution ) == CeERROR )
    {
       perror( "clock_getres" );
       exit( -1 );
@@ -338,7 +359,10 @@ int main(int argc, char *argv[])
               rtclk_resolution.tv_nsec );
    }
 
+   // Get the start time for the schedule
    clock_gettime( CLOCK_REALTIME, &task_start_time );
+
+   // Set the schedule stop time used by the tasks to shutdown.
    task_stop_time.tv_sec = task_start_time.tv_sec + ( CeXXXX_Quantum * 10 * 2 );
    task_stop_time.tv_nsec = task_start_time.tv_nsec;
 
@@ -347,23 +371,24 @@ int main(int argc, char *argv[])
    {
       assert( LeXXXX_Cnt_Index == VaXXXX_h_ThreadParams[LeXXXX_Cnt_Index].e_Idx_Thread );
 
+      // Set the start time used by each thread to the same initial value.
       taskStartTime[ LeXXXX_Cnt_Index ].tv_sec = task_start_time.tv_sec;
       taskStartTime[ LeXXXX_Cnt_Index ].tv_nsec = task_start_time.tv_nsec;
 
       CPU_ZERO( &threadcpu );
       coreid = 0;
-      printf( "Setting thread %d to core %d:", LeXXXX_Cnt_Index, coreid );
-      CPU_SET( coreid, &threadcpu );
-
-      for( idx=0; idx<numberOfProcessors; idx++ )
-      {
-         if(CPU_ISSET( idx, &threadcpu ) )
-         {
+      { // Display CPU and core status
+        printf( "Setting thread %d to core %d:", LeXXXX_Cnt_Index, coreid );
+        CPU_SET( coreid, &threadcpu );
+        for( idx=0; idx<numberOfProcessors; idx++ )
+        {
+          if(CPU_ISSET( idx, &threadcpu ) )
+          {
             printf( " CPU-%d", idx );
-         }
+          }
+        }
+        printf( "\n" );
       }
-
-      printf( "\n" );
 
       LeXXXX_i_Result = pthread_attr_init( &rt_sched_attr[ LeXXXX_Cnt_Index ] );
       LeXXXX_i_Result = pthread_attr_setinheritsched( &rt_sched_attr[ LeXXXX_Cnt_Index ], PTHREAD_EXPLICIT_SCHED );
@@ -378,6 +403,7 @@ int main(int argc, char *argv[])
                       VaXXXX_Ptr_Tasks[LeXXXX_Cnt_Index ],
                       ( void *)&( VaXXXX_h_ThreadParams[ LeXXXX_Cnt_Index ] ) );
 
+      // Delay the start of each task by 1 second so that they don't start out of order.
       sleep( 1 );
    }
 
@@ -387,6 +413,7 @@ int main(int argc, char *argv[])
       pthread_join( VaXXXX_h_PThreads[ LeXXXX_Cnt_Index ], NULL );
    }
 
+   // Close syslog
    closelog( );
 
    printf( "TEST COMPLETE\n" );
