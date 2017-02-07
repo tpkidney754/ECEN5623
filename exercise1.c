@@ -203,6 +203,7 @@ void *ProcXXXX_Task1(void *threadp)
    {
       interval++;
 
+      // Calculate the time T
       interval_stop_time.tv_sec = taskStartTime[ VaXXXX_h_ThreadParams->e_Idx_Thread ].tv_sec + T;
       interval_stop_time.tv_nsec = taskStartTime[ VaXXXX_h_ThreadParams->e_Idx_Thread ].tv_nsec;
 
@@ -212,12 +213,21 @@ void *ProcXXXX_Task1(void *threadp)
               "Thread %d - %d: T = %d C = %d",
               VaXXXX_h_ThreadParams->e_Idx_Thread, interval, T, C );
 
+      // Start the busy loop for period C
       clock_gettime( CLOCK_REALTIME, &rtclk_start_time );
       uint32_t pre_sec = 0;
       do
       {
+         // Turns out that getting the time uses a lot more CPU then simple
+         // math calculations. So we used getting the time to pass the time.
          clock_gettime( CLOCK_REALTIME, &rtclk_stop_time );
          delta_t( &rtclk_stop_time, &rtclk_start_time, &rtclk_spin_dt );
+         // If more that a second has passed than either log a 'spin' message, or
+         // test if time has jumped ahead due to a higher priority task running.
+         // If time jumped ahead then hack the time values to get operational.
+         // This hack should be replaced by either computing the elapsed CPU
+         // time rather than wall clock time, or use a shared value to track
+         // quantum number.
          if( rtclk_spin_dt.tv_sec > pre_sec )
          {
             if( rtclk_spin_dt.tv_sec > pre_sec + 1 )
@@ -244,6 +254,7 @@ void *ProcXXXX_Task1(void *threadp)
       sleep_time.tv_sec = rtclk_dt.tv_sec;
       sleep_time.tv_nsec = rtclk_dt.tv_nsec;
 
+      // If the time has not passed the end of T, then sleep until T
       if( sleep_time.tv_sec >= 0 && sleep_time.tv_nsec >= 0 )
       {
          syslog( LOG_MAKEPRI( LOG_USER, LOG_INFO ),
@@ -251,11 +262,11 @@ void *ProcXXXX_Task1(void *threadp)
                  VaXXXX_h_ThreadParams->e_Idx_Thread, interval,
                  sleep_time.tv_sec, sleep_time.tv_nsec );
 
+         // Sleep until T
          nanosleep( &sleep_time, &remaining_time );
       }
 
       delta_t( &task_stop_time, &rtclk_stop_time, &rtclk_dt );
-
       clock_gettime( CLOCK_REALTIME, &taskStartTime[ VaXXXX_h_ThreadParams->e_Idx_Thread ] );
    }
    while( rtclk_dt.tv_sec > 0 );
