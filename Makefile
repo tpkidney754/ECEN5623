@@ -1,40 +1,31 @@
+include sources.mk
 INCLUDE_DIRS =
 LIB_DIRS =
 host: CC = gcc
 de1: CC = arm-linux-gnueabihf-gcc
 de1: OUT = de1Clock
-CDEFS=
-CFLAGS= -O3 $(INCLUDE_DIRS) $(CDEFS)
-LIBS=
+CDEFS =
+CFLAGS = -O3 $(INCLUDE_DIRS) $(CDEFS)
+LIBS =
 
-HFILES=
-CFILES= exercise1.c
+OBJS = ${SRCS:.c=.o}
+OUT = ${OBJS:.o=.out}
 
-SRCS= ${HFILES} ${CFILES}
-OBJS= ${CFILES:.c=.o}
-
-all:	exercise1 posix_clock
+all: clean $(OBJS) ${OUT}
 
 clean:
-	rm -f *.o *.d
-	rm -f exercise1 posix_clock
+	rm -f *.o *.d *.out
 
 distclean:
 	-rm -f *.o *.d
 
-exercise1: exercise1.o
-	$(CC) $(LDFLAGS) $(CFLAGS) -o $@ $@.o -lpthread
+de1: clean all upload
 
-posix_clock: posix_clock.o
-	$(CC) $(LDFLAGS) $(CFLAGS) -o $@ $@.o -lpthread
+upload:
+	scp *.out ubuntu@192.168.1.23:/home/ubuntu/bin
 
-de1: all
+%.o: %.c
+	$(CC) $(CFLAGS) -c $*.c $(INCLUDES) -o $@
 
-upload: de1
-	scp exercise1 ubuntu@192.168.1.20:/home/ubuntu/bin
-	scp posix_clock ubuntu@192.168.1.20:/home/ubuntu/bin
-
-depend:
-
-.c.o:
-	$(CC) $(CFLAGS) -c $<
+%.out: %.o
+	$(CC) $(CFLAGS) -o $@ $*.o -lpthread
