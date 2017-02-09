@@ -1,0 +1,32 @@
+*** Creating Trace Output File '.\rvmdk\RTOSDemo.tra' Ok.
+### Preparing for ADS-LD.
+### Creating ADS-LD Command Line
+### List of Objects: adding '".\rvmdk\integer.o"'
+### List of Objects: adding '".\rvmdk\main.o"'
+### List of Objects: adding '".\rvmdk\startup_rvmdk.o"'
+### List of Objects: adding '".\rvmdk\logging.o"'
+### List of Objects: adding '".\rvmdk\fibtasks.o"'
+### List of Objects: adding '"..\Common\drivers\LuminaryMicro\Keil\driverlib.lib"'
+### List of Objects: adding '"..\Common\drivers\LuminaryMicro\Keil\grlib.lib"'
+### List of Objects: adding '".\rvmdk\osram128x64x4.o"'
+### List of Objects: adding '".\rvmdk\rit128x96x4.o"'
+### List of Objects: adding '".\rvmdk\formike128x128x16.o"'
+### List of Objects: adding '".\rvmdk\tasks.o"'
+### List of Objects: adding '".\rvmdk\list.o"'
+### List of Objects: adding '".\rvmdk\queue.o"'
+### List of Objects: adding '".\rvmdk\port.o"'
+### List of Objects: adding '".\rvmdk\heap_2.o"'
+### ADS-LD Command completed:
+--cpu Cortex-M3 ".\rvmdk\integer.o" ".\rvmdk\main.o" ".\rvmdk\startup_rvmdk.o" ".\rvmdk\logging.o" ".\rvmdk\fibtasks.o" "C:\Users\John Pratt\ecen5623\FreeRTOS\Demo\Common\drivers\LuminaryMicro\Keil\driverlib.lib" "C:\Users\John Pratt\ecen5623\FreeRTOS\Demo\Common\drivers\LuminaryMicro\Keil\grlib.lib" ".\rvmdk\osram128x64x4.o" ".\rvmdk\rit128x96x4.o" ".\rvmdk\formike128x128x16.o" ".\rvmdk\tasks.o" ".\rvmdk\list.o" ".\rvmdk\queue.o" ".\rvmdk\port.o" ".\rvmdk\heap_2.o" --strict --scatter ".\rvmdk\RTOSDemo.sct" 
+--entry Reset_Handler --summary_stderr --info summarysizes --info sizes --info totals 
+ --list ".\rvmdk\RTOSDemo.map" -o .\rvmdk\RTOSDemo.axf### Preparing Environment (PrepEnvAds)
+### ADS-LD Output File: '.\rvmdk\RTOSDemo.axf'
+### ADS-LD Command File: '.\rvmdk\RTOSDemo.lnp'
+### Checking for dirty Components...
+### Creating CmdFile '.\rvmdk\RTOSDemo.lnp', Handle=0x00000D08
+### Writing '.lnp' file
+### ADS-LD Command file '.\rvmdk\RTOSDemo.lnp' is ready.
+### ADS-LD: About to start ADS-LD Thread.
+### ADS-LD: executed with 0 errors
+### Updating obj list
+### LDADS_file() completed.

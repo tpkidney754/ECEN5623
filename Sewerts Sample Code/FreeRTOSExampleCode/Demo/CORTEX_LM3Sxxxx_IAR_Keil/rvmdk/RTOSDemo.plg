@@ -1,0 +1,528 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+C:\Users\John Pratt\ecen5623\FreeRTOS\Demo\CORTEX_LM3Sxxxx_IAR_Keil\RTOSDemo.uvproj
+Project File Date:  05/19/2013
+
+<h2>Output:</h2>
+Rebuild target 'FreeRTOS_Demo'
+compiling integer.c...
+..\Common\Minimal\integer.c(149): warning:  #223-D: function "sysClockGet" declared implicitly
+compiling main.c...
+assembling startup_rvmdk.S...
+compiling Logging.c...
+compiling LogQueue.c...
+compiling osram128x64x4.c...
+compiling rit128x96x4.c...
+compiling formike128x128x16.c...
+compiling tasks.c...
+compiling list.c...
+compiling queue.c...
+compiling port.c...
+compiling heap_2.c...
+linking...
+.\rvmdk\RTOSDemo.axf: Error: L6218E: Undefined symbol sysClockGet (referred from integer.o).
+Target not created
+Build target 'FreeRTOS_Demo'
+compiling integer.c...
+linking...
+Program Size: Code=15464 RO-data=8264 RW-data=224 ZI-data=26568  
+User command #1: fromelf --bin --output .\rvmdk\RTOSDemo.bin .\rvmdk\RTOSDemo.axf
+".\rvmdk\RTOSDemo.axf" - 0 Error(s), 0 Warning(s).
+Load "C:\\Users\\John Pratt\\ecen5623\\FreeRTOS\\Demo\\CORTEX_LM3Sxxxx_IAR_Keil\\rvmdk\\RTOSDemo.AXF" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'FreeRTOS_Demo'
+compiling integer.c...
+linking...
+Program Size: Code=15460 RO-data=8264 RW-data=224 ZI-data=26568  
+User command #1: fromelf --bin --output .\rvmdk\RTOSDemo.bin .\rvmdk\RTOSDemo.axf
+".\rvmdk\RTOSDemo.axf" - 0 Error(s), 0 Warning(s).
+Load "C:\\Users\\John Pratt\\ecen5623\\FreeRTOS\\Demo\\CORTEX_LM3Sxxxx_IAR_Keil\\rvmdk\\RTOSDemo.AXF" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'FreeRTOS_Demo'
+compiling integer.c...
+linking...
+Program Size: Code=15460 RO-data=8264 RW-data=224 ZI-data=26568  
+User command #1: fromelf --bin --output .\rvmdk\RTOSDemo.bin .\rvmdk\RTOSDemo.axf
+".\rvmdk\RTOSDemo.axf" - 0 Error(s), 0 Warning(s).
+Build target 'FreeRTOS_Demo'
+compiling integer.c...
+linking...
+Program Size: Code=15460 RO-data=8264 RW-data=224 ZI-data=26568  
+User command #1: fromelf --bin --output .\rvmdk\RTOSDemo.bin .\rvmdk\RTOSDemo.axf
+".\rvmdk\RTOSDemo.axf" - 0 Error(s), 0 Warning(s).
+Load "C:\\Users\\John Pratt\\ecen5623\\FreeRTOS\\Demo\\CORTEX_LM3Sxxxx_IAR_Keil\\rvmdk\\RTOSDemo.AXF" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'FreeRTOS_Demo'
+compiling integer.c...
+linking...
+Program Size: Code=15460 RO-data=8264 RW-data=224 ZI-data=26568  
+User command #1: fromelf --bin --output .\rvmdk\RTOSDemo.bin .\rvmdk\RTOSDemo.axf
+".\rvmdk\RTOSDemo.axf" - 0 Error(s), 0 Warning(s).
+Load "C:\\Users\\John Pratt\\ecen5623\\FreeRTOS\\Demo\\CORTEX_LM3Sxxxx_IAR_Keil\\rvmdk\\RTOSDemo.AXF" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'FreeRTOS_Demo'
+compiling integer.c...
+linking...
+Program Size: Code=15460 RO-data=8264 RW-data=224 ZI-data=26568  
+User command #1: fromelf --bin --output .\rvmdk\RTOSDemo.bin .\rvmdk\RTOSDemo.axf
+".\rvmdk\RTOSDemo.axf" - 0 Error(s), 0 Warning(s).
+Build target 'FreeRTOS_Demo'
+linking...
+Program Size: Code=15460 RO-data=8264 RW-data=224 ZI-data=26568  
+User command #1: fromelf --bin --output .\rvmdk\RTOSDemo.bin .\rvmdk\RTOSDemo.axf
+".\rvmdk\RTOSDemo.axf" - 0 Error(s), 0 Warning(s).
+Load "C:\\Users\\John Pratt\\ecen5623\\FreeRTOS\\Demo\\CORTEX_LM3Sxxxx_IAR_Keil\\rvmdk\\RTOSDemo.AXF" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
+Rebuild target 'FreeRTOS_Demo'
+compiling integer.c...
+compiling main.c...
+assembling startup_rvmdk.S...
+compiling Logging.c...
+compiling LogQueue.c...
+compiling osram128x64x4.c...
+compiling rit128x96x4.c...
+compiling formike128x128x16.c...
+compiling tasks.c...
+compiling list.c...
+compiling queue.c...
+compiling port.c...
+compiling heap_2.c...
+linking...
+Program Size: Code=15460 RO-data=8264 RW-data=224 ZI-data=26568  
+User command #1: fromelf --bin --output .\rvmdk\RTOSDemo.bin .\rvmdk\RTOSDemo.axf
+".\rvmdk\RTOSDemo.axf" - 0 Error(s), 0 Warning(s).
+Load "C:\\Users\\John Pratt\\ecen5623\\FreeRTOS\\Demo\\CORTEX_LM3Sxxxx_IAR_Keil\\rvmdk\\RTOSDemo.AXF" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'FreeRTOS_Demo'
+compiling integer.c...
+compiling Logging.c...
+linking...
+Program Size: Code=15460 RO-data=8264 RW-data=224 ZI-data=26568  
+User command #1: fromelf --bin --output .\rvmdk\RTOSDemo.bin .\rvmdk\RTOSDemo.axf
+".\rvmdk\RTOSDemo.axf" - 0 Error(s), 0 Warning(s).
+Load "C:\\Users\\John Pratt\\ecen5623\\FreeRTOS\\Demo\\CORTEX_LM3Sxxxx_IAR_Keil\\rvmdk\\RTOSDemo.AXF" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'FreeRTOS_Demo'
+compiling main.c...
+linking...
+Program Size: Code=9650 RO-data=646 RW-data=152 ZI-data=26480  
+User command #1: fromelf --bin --output .\rvmdk\RTOSDemo.bin .\rvmdk\RTOSDemo.axf
+".\rvmdk\RTOSDemo.axf" - 0 Error(s), 0 Warning(s).
+Load "C:\\Users\\John Pratt\\ecen5623\\FreeRTOS\\Demo\\CORTEX_LM3Sxxxx_IAR_Keil\\rvmdk\\RTOSDemo.AXF" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'FreeRTOS_Demo'
+compiling integer.c...
+linking...
+Program Size: Code=9646 RO-data=646 RW-data=152 ZI-data=26480  
+User command #1: fromelf --bin --output .\rvmdk\RTOSDemo.bin .\rvmdk\RTOSDemo.axf
+".\rvmdk\RTOSDemo.axf" - 0 Error(s), 0 Warning(s).
+Load "C:\\Users\\John Pratt\\ecen5623\\FreeRTOS\\Demo\\CORTEX_LM3Sxxxx_IAR_Keil\\rvmdk\\RTOSDemo.AXF" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'FreeRTOS_Demo'
+compiling integer.c...
+compiling Logging.c...
+linking...
+Program Size: Code=9654 RO-data=646 RW-data=152 ZI-data=26480  
+User command #1: fromelf --bin --output .\rvmdk\RTOSDemo.bin .\rvmdk\RTOSDemo.axf
+".\rvmdk\RTOSDemo.axf" - 0 Error(s), 0 Warning(s).
+Load "C:\\Users\\John Pratt\\ecen5623\\FreeRTOS\\Demo\\CORTEX_LM3Sxxxx_IAR_Keil\\rvmdk\\RTOSDemo.AXF" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'FreeRTOS_Demo'
+compiling integer.c...
+linking...
+Program Size: Code=9654 RO-data=646 RW-data=152 ZI-data=26480  
+User command #1: fromelf --bin --output .\rvmdk\RTOSDemo.bin .\rvmdk\RTOSDemo.axf
+".\rvmdk\RTOSDemo.axf" - 0 Error(s), 0 Warning(s).
+Load "C:\\Users\\John Pratt\\ecen5623\\FreeRTOS\\Demo\\CORTEX_LM3Sxxxx_IAR_Keil\\rvmdk\\RTOSDemo.AXF" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'FreeRTOS_Demo'
+compiling integer.c...
+compiling Logging.c...
+linking...
+Program Size: Code=9398 RO-data=646 RW-data=152 ZI-data=26480  
+User command #1: fromelf --bin --output .\rvmdk\RTOSDemo.bin .\rvmdk\RTOSDemo.axf
+".\rvmdk\RTOSDemo.axf" - 0 Error(s), 0 Warning(s).
+Load "C:\\Users\\John Pratt\\ecen5623\\FreeRTOS\\Demo\\CORTEX_LM3Sxxxx_IAR_Keil\\rvmdk\\RTOSDemo.AXF" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'FreeRTOS_Demo'
+compiling integer.c...
+linking...
+Program Size: Code=9402 RO-data=646 RW-data=152 ZI-data=26480  
+User command #1: fromelf --bin --output .\rvmdk\RTOSDemo.bin .\rvmdk\RTOSDemo.axf
+".\rvmdk\RTOSDemo.axf" - 0 Error(s), 0 Warning(s).
+Load "C:\\Users\\John Pratt\\ecen5623\\FreeRTOS\\Demo\\CORTEX_LM3Sxxxx_IAR_Keil\\rvmdk\\RTOSDemo.AXF" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'FreeRTOS_Demo'
+compiling integer.c...
+linking...
+Program Size: Code=9694 RO-data=646 RW-data=152 ZI-data=26480  
+User command #1: fromelf --bin --output .\rvmdk\RTOSDemo.bin .\rvmdk\RTOSDemo.axf
+".\rvmdk\RTOSDemo.axf" - 0 Error(s), 0 Warning(s).
+Load "C:\\Users\\John Pratt\\ecen5623\\FreeRTOS\\Demo\\CORTEX_LM3Sxxxx_IAR_Keil\\rvmdk\\RTOSDemo.AXF" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'FreeRTOS_Demo'
+compiling integer.c...
+linking...
+Program Size: Code=9702 RO-data=646 RW-data=152 ZI-data=26480  
+User command #1: fromelf --bin --output .\rvmdk\RTOSDemo.bin .\rvmdk\RTOSDemo.axf
+".\rvmdk\RTOSDemo.axf" - 0 Error(s), 0 Warning(s).
+Load "C:\\Users\\John Pratt\\ecen5623\\FreeRTOS\\Demo\\CORTEX_LM3Sxxxx_IAR_Keil\\rvmdk\\RTOSDemo.AXF" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'FreeRTOS_Demo'
+compiling integer.c...
+linking...
+Program Size: Code=9994 RO-data=646 RW-data=152 ZI-data=26480  
+User command #1: fromelf --bin --output .\rvmdk\RTOSDemo.bin .\rvmdk\RTOSDemo.axf
+".\rvmdk\RTOSDemo.axf" - 0 Error(s), 0 Warning(s).
+Load "C:\\Users\\John Pratt\\ecen5623\\FreeRTOS\\Demo\\CORTEX_LM3Sxxxx_IAR_Keil\\rvmdk\\RTOSDemo.AXF" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'FreeRTOS_Demo'
+compiling integer.c...
+linking...
+Program Size: Code=10026 RO-data=646 RW-data=156 ZI-data=26484  
+User command #1: fromelf --bin --output .\rvmdk\RTOSDemo.bin .\rvmdk\RTOSDemo.axf
+".\rvmdk\RTOSDemo.axf" - 0 Error(s), 0 Warning(s).
+Load "C:\\Users\\John Pratt\\ecen5623\\FreeRTOS\\Demo\\CORTEX_LM3Sxxxx_IAR_Keil\\rvmdk\\RTOSDemo.AXF" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'FreeRTOS_Demo'
+compiling integer.c...
+linking...
+Program Size: Code=10034 RO-data=646 RW-data=156 ZI-data=26484  
+User command #1: fromelf --bin --output .\rvmdk\RTOSDemo.bin .\rvmdk\RTOSDemo.axf
+".\rvmdk\RTOSDemo.axf" - 0 Error(s), 0 Warning(s).
+Load "C:\\Users\\John Pratt\\ecen5623\\FreeRTOS\\Demo\\CORTEX_LM3Sxxxx_IAR_Keil\\rvmdk\\RTOSDemo.AXF" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'FreeRTOS_Demo'
+compiling integer.c...
+linking...
+Program Size: Code=10034 RO-data=646 RW-data=156 ZI-data=26484  
+User command #1: fromelf --bin --output .\rvmdk\RTOSDemo.bin .\rvmdk\RTOSDemo.axf
+".\rvmdk\RTOSDemo.axf" - 0 Error(s), 0 Warning(s).
+Load "C:\\Users\\John Pratt\\ecen5623\\FreeRTOS\\Demo\\CORTEX_LM3Sxxxx_IAR_Keil\\rvmdk\\RTOSDemo.AXF" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'FreeRTOS_Demo'
+compiling integer.c...
+..\Common\Minimal\integer.c(184): error:  #20: identifier "fib_count_20" is undefined
+..\Common\Minimal\integer.c(185): error:  #20: identifier "done_20" is undefined
+..\Common\Minimal\integer.c(187): error:  #20: identifier "xSemaphore_20" is undefined
+..\Common\Minimal\integer.c(212): error:  #20: identifier "done_10" is undefined
+..\Common\Minimal\integer.c(214): error:  #20: identifier "fib_count_10" is undefined
+..\Common\Minimal\integer.c(215): error:  #20: identifier "xSemaphore_10" is undefined
+compiling Logging.c...
+compiling fibtasks.c...
+Target not created
+Build target 'FreeRTOS_Demo'
+compiling integer.c...
+linking...
+Program Size: Code=10034 RO-data=646 RW-data=156 ZI-data=26484  
+User command #1: fromelf --bin --output .\rvmdk\RTOSDemo.bin .\rvmdk\RTOSDemo.axf
+".\rvmdk\RTOSDemo.axf" - 0 Error(s), 0 Warning(s).
+Load "C:\\Users\\John Pratt\\ecen5623\\FreeRTOS\\Demo\\CORTEX_LM3Sxxxx_IAR_Keil\\rvmdk\\RTOSDemo.AXF" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'FreeRTOS_Demo'
+compiling integer.c...
+compiling fibtasks.c...
+linking...
+Program Size: Code=10034 RO-data=646 RW-data=156 ZI-data=26484  
+User command #1: fromelf --bin --output .\rvmdk\RTOSDemo.bin .\rvmdk\RTOSDemo.axf
+".\rvmdk\RTOSDemo.axf" - 0 Error(s), 0 Warning(s).
+Load "C:\\Users\\John Pratt\\ecen5623\\FreeRTOS\\Demo\\CORTEX_LM3Sxxxx_IAR_Keil\\rvmdk\\RTOSDemo.AXF" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'FreeRTOS_Demo'
+compiling fibtasks.c...
+linking...
+Program Size: Code=10034 RO-data=646 RW-data=156 ZI-data=26484  
+User command #1: fromelf --bin --output .\rvmdk\RTOSDemo.bin .\rvmdk\RTOSDemo.axf
+".\rvmdk\RTOSDemo.axf" - 0 Error(s), 0 Warning(s).
+Load "C:\\Users\\John Pratt\\ecen5623\\FreeRTOS\\Demo\\CORTEX_LM3Sxxxx_IAR_Keil\\rvmdk\\RTOSDemo.AXF" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'FreeRTOS_Demo'
+compiling fibtasks.c...
+linking...
+Program Size: Code=10034 RO-data=646 RW-data=156 ZI-data=26484  
+User command #1: fromelf --bin --output .\rvmdk\RTOSDemo.bin .\rvmdk\RTOSDemo.axf
+".\rvmdk\RTOSDemo.axf" - 0 Error(s), 0 Warning(s).
+Load "C:\\Users\\John Pratt\\ecen5623\\FreeRTOS\\Demo\\CORTEX_LM3Sxxxx_IAR_Keil\\rvmdk\\RTOSDemo.AXF" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'FreeRTOS_Demo'
+compiling main.c...
+compiling fibtasks.c...
+..\Common\Minimal\fibtasks.c(113): error:  #65: expected a ";"
+Target not created
+Build target 'FreeRTOS_Demo'
+compiling fibtasks.c...
+linking...
+Program Size: Code=15844 RO-data=8264 RW-data=228 ZI-data=26572  
+User command #1: fromelf --bin --output .\rvmdk\RTOSDemo.bin .\rvmdk\RTOSDemo.axf
+".\rvmdk\RTOSDemo.axf" - 0 Error(s), 0 Warning(s).
+Load "C:\\Users\\John Pratt\\ecen5623\\FreeRTOS\\Demo\\CORTEX_LM3Sxxxx_IAR_Keil\\rvmdk\\RTOSDemo.AXF" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'FreeRTOS_Demo'
+compiling main.c...
+linking...
+Program Size: Code=10034 RO-data=646 RW-data=156 ZI-data=26484  
+User command #1: fromelf --bin --output .\rvmdk\RTOSDemo.bin .\rvmdk\RTOSDemo.axf
+".\rvmdk\RTOSDemo.axf" - 0 Error(s), 0 Warning(s).
+Load "C:\\Users\\John Pratt\\ecen5623\\FreeRTOS\\Demo\\CORTEX_LM3Sxxxx_IAR_Keil\\rvmdk\\RTOSDemo.AXF" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'FreeRTOS_Demo'
+compiling main.c...
+linking...
+Program Size: Code=15844 RO-data=8264 RW-data=228 ZI-data=26572  
+User command #1: fromelf --bin --output .\rvmdk\RTOSDemo.bin .\rvmdk\RTOSDemo.axf
+".\rvmdk\RTOSDemo.axf" - 0 Error(s), 0 Warning(s).
+Load "C:\\Users\\John Pratt\\ecen5623\\FreeRTOS\\Demo\\CORTEX_LM3Sxxxx_IAR_Keil\\rvmdk\\RTOSDemo.AXF" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'FreeRTOS_Demo'
+compiling fibtasks.c...
+linking...
+Program Size: Code=15844 RO-data=8264 RW-data=228 ZI-data=26572  
+User command #1: fromelf --bin --output .\rvmdk\RTOSDemo.bin .\rvmdk\RTOSDemo.axf
+".\rvmdk\RTOSDemo.axf" - 0 Error(s), 0 Warning(s).
+Load "C:\\Users\\John Pratt\\ecen5623\\FreeRTOS\\Demo\\CORTEX_LM3Sxxxx_IAR_Keil\\rvmdk\\RTOSDemo.AXF" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'FreeRTOS_Demo'
+compiling fibtasks.c...
+linking...
+Program Size: Code=15844 RO-data=8264 RW-data=228 ZI-data=26572  
+User command #1: fromelf --bin --output .\rvmdk\RTOSDemo.bin .\rvmdk\RTOSDemo.axf
+".\rvmdk\RTOSDemo.axf" - 0 Error(s), 0 Warning(s).
+Load "C:\\Users\\John Pratt\\ecen5623\\FreeRTOS\\Demo\\CORTEX_LM3Sxxxx_IAR_Keil\\rvmdk\\RTOSDemo.AXF" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'FreeRTOS_Demo'
+compiling main.c...
+linking...
+Program Size: Code=15844 RO-data=8264 RW-data=228 ZI-data=26572  
+User command #1: fromelf --bin --output .\rvmdk\RTOSDemo.bin .\rvmdk\RTOSDemo.axf
+".\rvmdk\RTOSDemo.axf" - 0 Error(s), 0 Warning(s).
+Load "C:\\Users\\John Pratt\\ecen5623\\FreeRTOS\\Demo\\CORTEX_LM3Sxxxx_IAR_Keil\\rvmdk\\RTOSDemo.AXF" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'FreeRTOS_Demo'
+compiling fibtasks.c...
+linking...
+Program Size: Code=15844 RO-data=8264 RW-data=228 ZI-data=26572  
+User command #1: fromelf --bin --output .\rvmdk\RTOSDemo.bin .\rvmdk\RTOSDemo.axf
+".\rvmdk\RTOSDemo.axf" - 0 Error(s), 0 Warning(s).
+Load "C:\\Users\\John Pratt\\ecen5623\\FreeRTOS\\Demo\\CORTEX_LM3Sxxxx_IAR_Keil\\rvmdk\\RTOSDemo.AXF" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'FreeRTOS_Demo'
+compiling fibtasks.c...
+linking...
+Program Size: Code=15844 RO-data=8264 RW-data=228 ZI-data=26572  
+User command #1: fromelf --bin --output .\rvmdk\RTOSDemo.bin .\rvmdk\RTOSDemo.axf
+".\rvmdk\RTOSDemo.axf" - 0 Error(s), 0 Warning(s).
+Load "C:\\Users\\John Pratt\\ecen5623\\FreeRTOS\\Demo\\CORTEX_LM3Sxxxx_IAR_Keil\\rvmdk\\RTOSDemo.AXF" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'FreeRTOS_Demo'
+compiling integer.c...
+linking...
+Program Size: Code=15844 RO-data=8264 RW-data=228 ZI-data=26572  
+User command #1: fromelf --bin --output .\rvmdk\RTOSDemo.bin .\rvmdk\RTOSDemo.axf
+".\rvmdk\RTOSDemo.axf" - 0 Error(s), 0 Warning(s).
+Load "C:\\Users\\John Pratt\\ecen5623\\FreeRTOS\\Demo\\CORTEX_LM3Sxxxx_IAR_Keil\\rvmdk\\RTOSDemo.AXF" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'FreeRTOS_Demo'
+compiling fibtasks.c...
+linking...
+Program Size: Code=15844 RO-data=8264 RW-data=228 ZI-data=26572  
+User command #1: fromelf --bin --output .\rvmdk\RTOSDemo.bin .\rvmdk\RTOSDemo.axf
+".\rvmdk\RTOSDemo.axf" - 0 Error(s), 0 Warning(s).
+Load "C:\\Users\\John Pratt\\ecen5623\\FreeRTOS\\Demo\\CORTEX_LM3Sxxxx_IAR_Keil\\rvmdk\\RTOSDemo.AXF" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'FreeRTOS_Demo'
+compiling fibtasks.c...
+linking...
+Program Size: Code=15844 RO-data=8264 RW-data=228 ZI-data=26572  
+User command #1: fromelf --bin --output .\rvmdk\RTOSDemo.bin .\rvmdk\RTOSDemo.axf
+".\rvmdk\RTOSDemo.axf" - 0 Error(s), 0 Warning(s).
+Load "C:\\Users\\John Pratt\\ecen5623\\FreeRTOS\\Demo\\CORTEX_LM3Sxxxx_IAR_Keil\\rvmdk\\RTOSDemo.AXF" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'FreeRTOS_Demo'
+compiling fibtasks.c...
+linking...
+Program Size: Code=15844 RO-data=8264 RW-data=228 ZI-data=26572  
+User command #1: fromelf --bin --output .\rvmdk\RTOSDemo.bin .\rvmdk\RTOSDemo.axf
+".\rvmdk\RTOSDemo.axf" - 0 Error(s), 0 Warning(s).
+Build target 'FreeRTOS_Demo'
+compiling main.c...
+linking...
+Program Size: Code=15844 RO-data=8264 RW-data=228 ZI-data=26572  
+User command #1: fromelf --bin --output .\rvmdk\RTOSDemo.bin .\rvmdk\RTOSDemo.axf
+".\rvmdk\RTOSDemo.axf" - 0 Error(s), 0 Warning(s).
+Load "C:\\Users\\John Pratt\\ecen5623\\FreeRTOS\\Demo\\CORTEX_LM3Sxxxx_IAR_Keil\\rvmdk\\RTOSDemo.AXF" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'FreeRTOS_Demo'
+compiling Logging.c...
+linking...
+Program Size: Code=15844 RO-data=8264 RW-data=228 ZI-data=26636  
+User command #1: fromelf --bin --output .\rvmdk\RTOSDemo.bin .\rvmdk\RTOSDemo.axf
+".\rvmdk\RTOSDemo.axf" - 0 Error(s), 0 Warning(s).
+Load "C:\\Users\\John Pratt\\ecen5623\\FreeRTOS\\Demo\\CORTEX_LM3Sxxxx_IAR_Keil\\rvmdk\\RTOSDemo.AXF" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'FreeRTOS_Demo'
+compiling Logging.c...
+linking...
+Program Size: Code=15844 RO-data=8264 RW-data=228 ZI-data=26524  
+User command #1: fromelf --bin --output .\rvmdk\RTOSDemo.bin .\rvmdk\RTOSDemo.axf
+".\rvmdk\RTOSDemo.axf" - 0 Error(s), 0 Warning(s).
+Load "C:\\Users\\John Pratt\\ecen5623\\FreeRTOS\\Demo\\CORTEX_LM3Sxxxx_IAR_Keil\\rvmdk\\RTOSDemo.AXF" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'FreeRTOS_Demo'
+compiling Logging.c...
+linking...
+Program Size: Code=15844 RO-data=8264 RW-data=228 ZI-data=26540  
+User command #1: fromelf --bin --output .\rvmdk\RTOSDemo.bin .\rvmdk\RTOSDemo.axf
+".\rvmdk\RTOSDemo.axf" - 0 Error(s), 0 Warning(s).
+Load "C:\\Users\\John Pratt\\ecen5623\\FreeRTOS\\Demo\\CORTEX_LM3Sxxxx_IAR_Keil\\rvmdk\\RTOSDemo.AXF" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'FreeRTOS_Demo'
+compiling fibtasks.c...
+linking...
+Program Size: Code=15844 RO-data=8264 RW-data=228 ZI-data=26540  
+User command #1: fromelf --bin --output .\rvmdk\RTOSDemo.bin .\rvmdk\RTOSDemo.axf
+".\rvmdk\RTOSDemo.axf" - 0 Error(s), 0 Warning(s).
+Load "C:\\Users\\John Pratt\\ecen5623\\FreeRTOS\\Demo\\CORTEX_LM3Sxxxx_IAR_Keil\\rvmdk\\RTOSDemo.AXF" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'FreeRTOS_Demo'
+compiling integer.c...
+linking...
+Program Size: Code=15772 RO-data=8264 RW-data=228 ZI-data=26540  
+User command #1: fromelf --bin --output .\rvmdk\RTOSDemo.bin .\rvmdk\RTOSDemo.axf
+".\rvmdk\RTOSDemo.axf" - 0 Error(s), 0 Warning(s).
+Load "C:\\Users\\John Pratt\\ecen5623\\FreeRTOS\\Demo\\CORTEX_LM3Sxxxx_IAR_Keil\\rvmdk\\RTOSDemo.AXF" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'FreeRTOS_Demo'
+compiling integer.c...
+compiling fibtasks.c...
+linking...
+Program Size: Code=15844 RO-data=8264 RW-data=228 ZI-data=26540  
+User command #1: fromelf --bin --output .\rvmdk\RTOSDemo.bin .\rvmdk\RTOSDemo.axf
+".\rvmdk\RTOSDemo.axf" - 0 Error(s), 0 Warning(s).
+Load "C:\\Users\\John Pratt\\ecen5623\\FreeRTOS\\Demo\\CORTEX_LM3Sxxxx_IAR_Keil\\rvmdk\\RTOSDemo.AXF" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.

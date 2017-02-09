@@ -1,0 +1,143 @@
+ARM Linker, 4.1 [Build 894] [Evaluation]
+
+==============================================================================
+
+Image component sizes
+
+
+      Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
+
+       672        186          0         44          0       2346   fibtasks.o
+      1540         78         48          0         28      10426   formike128x128x16.o
+       280         28          0         24      24000       3371   heap_2.o
+       524        124          0         10          0      18434   integer.o
+       152          0          0          0          0       2862   list.o
+       536         62          0         12         60       6198   logging.o
+       526        150       4928         16         25      19169   main.o
+       824         92        571         25          0       5908   osram128x64x4.o
+       330         46          0          4          0       4324   port.o
+      1094          0          0          0          0       8793   queue.o
+       952        118        571         25          0       6344   rit128x96x4.o
+       264        244          0          0       2048        464   startup_rvmdk.o
+      2144        310         20         60        244      17678   tasks.o
+
+    ----------------------------------------------------------------------
+      9854       1438       6175        228      26412     106317   Object Totals
+         0          0         32          0          0          0   (incl. Generated)
+        16          0          5          8          7          0   (incl. Padding)
+
+    ----------------------------------------------------------------------
+
+      Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Library Member Name
+
+         8          0          0          0          0         68   __main.o
+       396          6         17          0          0         92   __printf_flags_ss_wp.o
+        14          0          0          0          0         68   __printf_wp.o
+        52          8          0          0          0          0   __scatter.o
+        26          0          0          0          0          0   __scatter_copy.o
+        28          0          0          0          0          0   __scatter_zi.o
+         6          0          0          0          0          0   _printf_c.o
+        44          0          0          0          0        108   _printf_char.o
+        48          6          0          0          0         96   _printf_char_common.o
+         6          0          0          0          0          0   _printf_d.o
+       120         18          0          0          0         92   _printf_dec.o
+        92          4         40          0          0         88   _printf_hex_int.o
+         6          0          0          0          0          0   _printf_i.o
+       184          0          0          0          0         88   _printf_intcommon.o
+        10          0          0          0          0          0   _printf_l.o
+         6          0          0          0          0          0   _printf_lc.o
+         6          0          0          0          0          0   _printf_o.o
+        88          8          0          0          0         88   _printf_oct_int.o
+        82          0          0          0          0        108   _printf_pad.o
+         0          0          0          0          0          0   _printf_percent.o
+         4          0          0          0          0          0   _printf_percent_end.o
+         6          0          0          0          0          0   _printf_s.o
+        82          0          0          0          0         80   _printf_str.o
+        36          0          0          0          0         84   _printf_truncate.o
+         6          0          0          0          0          0   _printf_u.o
+        44          0          0          0          0        108   _printf_wchar.o
+       188          6          8          0          0         92   _printf_wctomb.o
+         6          0          0          0          0          0   _printf_x.o
+        16          0          0          0          0         68   _snputc.o
+        10          0          0          0          0         68   _sputc.o
+        64          0          0          0          0         92   _wcrtomb.o
+        16          0          0          0          0         68   aeabi_memset.o
+        12          0          0          0          0         72   exit.o
+         6          0          0          0          0        152   heapauxi.o
+         0          0          0          0          0          0   indicate_semi.o
+        44         10        272          0          0         76   lc_ctype_c.o
+         6          0          0          0          0          0   libinit.o
+        20          0          0          0          0          0   libinit2.o
+         2          0          0          0          0          0   libshutdown.o
+         2          0          0          0          0          0   libshutdown2.o
+         8          4          0          0         96         68   libspace.o
+        88          0          0          0          0         76   memcmp.o
+        52          4          0          0          0         84   noretval__2snprintf.o
+        40          6          0          0          0         84   noretval__2sprintf.o
+        16          4          0          0          0         76   rt_ctype_table.o
+         8          4          0          0          0         68   rt_fp_status_addr_intlibspace.o
+         8          4          0          0          0         68   rt_locale_intlibspace.o
+        68          0          0          0          0         68   rt_memclr.o
+        78          0          0          0          0         80   rt_memclr_w.o
+       138          0          0          0          0         68   rt_memcpy_v6.o
+       100          0          0          0          0         80   rt_memcpy_w.o
+         0          0          0          0          0          0   rtentry.o
+        12          0          0          0          0          0   rtentry2.o
+         6          0          0          0          0          0   rtentry4.o
+         2          0          0          0          0          0   rtexit.o
+        10          0          0          0          0          0   rtexit2.o
+       128          0          0          0          0         68   strcmpv7m.o
+        62          0          0          0          0         76   strlen.o
+        86          0          0          0          0         76   strncpy.o
+        12          4          0          0          0         68   sys_exit.o
+        74          0          0          0          0         80   sys_stackheap_outer.o
+         2          0          0          0          0         68   use_no_semi.o
+       306          0          0          0          0       7622   gpio.o
+       144          4         96          0          0       1943   interrupt.o
+       138          0          0          0          0       3529   ssi.o
+       690         70        156          0          0       4940   sysctl.o
+        72          0          0          0          0       2700   timer.o
+       102          0          0          0          0       1711   uart.o
+        14          0          0          0          0         76   fpinit.o
+        32          0          0          0          0      14114   context.o
+         0          0       1500          0          0      14171   fontcmss12.o
+       744          6          0          0         32      16318   image.o
+        88          0          0          0          0       1366   line.o
+       172          0          0          0          0        920   rectangle.o
+       678          0          0          0          0       1899   string.o
+
+    ----------------------------------------------------------------------
+      5990        176       2089          0        128      74421   Library Totals
+        20          0          0          0          0          0   (incl. Padding)
+
+    ----------------------------------------------------------------------
+
+      Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Library Name
+
+      2790         96        337          0         96       3112   c_w.l
+      1452         74        252          0          0      22445   driverlib.lib
+        14          0          0          0          0         76   fz_ws.l
+      1714          6       1500          0         32      48788   grlib.lib
+
+    ----------------------------------------------------------------------
+      5990        176       2089          0        128      74421   Library Totals
+
+    ----------------------------------------------------------------------
+
+==============================================================================
+
+
+      Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
+
+     15844       1614       8264        228      26540     172472   Grand Totals
+     15844       1614       8264        228      26540     172472   ELF Image Totals
+     15844       1614       8264        228          0          0   ROM Totals
+
+==============================================================================
+
+    Total RO  Size (Code + RO Data)                24108 (  23.54kB)
+    Total RW  Size (RW Data + ZI Data)             26768 (  26.14kB)
+    Total ROM Size (Code + RO Data + RW Data)      24336 (  23.77kB)
+
+==============================================================================
+
