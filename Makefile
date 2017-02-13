@@ -22,7 +22,7 @@ distclean:
 de1: clean all upload
 
 upload:
-	scp *.out ubuntu@192.168.1.23:/home/ubuntu/bin
+	scp *.out ubuntu@192.168.1.27:/home/ubuntu/bin
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $*.c $(INCLUDES) -o $@

@@ -23,15 +23,19 @@
 #include <sched.h>
 #include <time.h>
 #include <stdint.h>
+#include <syslog.h>
 
-#define NUM_THREADS       ( 4 )
-#define NUM_CPUS          ( 1 )
-#define NSEC_PER_SEC      ( 1000000000 )
-#define NSEC_PER_MSEC     ( 1000000 )
-#define NSEC_PER_MICROSEC ( 1000 )
-#define DELAY_TICKS       ( 1 )
-#define ERROR             ( -1 )
-#define OK                ( 0 )
+#define NUM_THREADS       3
+#define NUM_CPUS          1
+#define NSEC_PER_SEC      1000000000
+#define NSEC_PER_MSEC     1000000
+#define NSEC_PER_MICROSEC 1000
+#define DELAY_TICKS       1
+#define ERROR             -1
+#define OK                0
+
+uint32_t T[ NUM_THREADS ] = { 2, 5, 10 };
+uint32_t C[ NUM_THREADS ] = { 1, 2, 1 };
 
 uint32_t idx = 0, jdx = 1;
 uint32_t seqIterations = 47;
@@ -55,7 +59,10 @@ int32_t numberOfProcessors;
 
 typedef struct
 {
-    int32_t threadIdx;
+   int32_t threadIdx;
+   int32_t T;
+   int32_t C;
+   struct timespec previousRelease;
 } threadParams_t;
 
 
@@ -87,11 +94,11 @@ struct sched_param main_param;
 pthread_attr_t main_attr;
 pid_t mainpid;
 
-
+// returns the time that has passed between start and stop.
 int32_t delta_t( struct timespec *stop, struct timespec *start, struct timespec *delta_t )
 {
-  int32_t dt_sec=stop->tv_sec - start->tv_sec;
-  int32_t dt_nsec=stop->tv_nsec - start->tv_nsec;
+  int32_t dt_sec = stop->tv_sec - start->tv_sec;
+  int32_t dt_nsec = stop->tv_nsec - start->tv_nsec;
 
    if( dt_sec >= 0 )
    {
@@ -145,15 +152,24 @@ void *counterThread( void *threadp )
    pthread_getaffinity_np( thread, sizeof( cpu_set_t ), &cpuset );
 
    // COMPUTE SECTION
-   for( i = 1; i < ( ( ( threadParams->threadIdx ) + 1 ) * 100 ); i++ )
+   uint32_t running = 1;
+   i = 0;
+   clock_gettime( CLOCK_REALTIME, &start_time );
+   while( running )
    {
-      sum = sum + i;
+      sum = sum + i++;
+      clock_gettime( CLOCK_REALTIME, &finish_time );
+      delta_t( &finish_time, &start_time, &thread_dt );
+      if( thread_dt.tv_nsec > threadParams->C )
+      {
+         running = 0;
+      }
    }
 
-   FIB_TEST( seqIterations, reqIterations );
+      FIB_TEST( seqIterations, reqIterations );
    // END COMPUTE SECTION
 
-   printf( "\nThread idx = %d, sum[ 0...%d ] = %d\n",
+/*   printf( "\nThread idx = %d, sum[ 0...%d ] = %d\n",
            threadParams->threadIdx,
            ( ( threadParams->threadIdx) + 1 ) * 100, sum );
 
@@ -178,7 +194,7 @@ void *counterThread( void *threadp )
            thread_dt.tv_sec,
            ( thread_dt.tv_nsec / NSEC_PER_MSEC ),
            ( thread_dt.tv_nsec / NSEC_PER_MICROSEC ) );
-
+*/
    pthread_exit( &sum );
 }
 
@@ -272,8 +288,8 @@ int32_t main( int32_t argc, uint8_t *argv[ ] )
            the PTHREAD_SCOPE_PROCESS contention scope. PTHREAD_SCOPE_PROCESS threads are scheduled relative to other
            threads in the process according to their scheduling policy and priority. POSIX.1 leaves it unspecified
            how these threads contend with other threads in other process on the system or with other threads in the
-           same process that were created with the PTHREAD_SCOPE_SYSTEM contention scope.*/
-
+           same process that were created with the PTHREAD_SCOPE_SYSTEM contention scope.
+*/
    pthread_attr_getscope( &main_attr, &scope );
 
    if( scope == PTHREAD_SCOPE_SYSTEM )
@@ -332,24 +348,65 @@ int32_t main( int32_t argc, uint8_t *argv[ ] )
 
       threadParams[ i ].threadIdx = i;
 
-      // The pthread_create() function starts a new thread in the calling process. The new thread starts
-      // execution by invoking start_routine(); arg is passed as the sole argument of start_routine().
-
-      pthread_create( &threads[ i ],                  // pointer to thread descriptor
-                      ( void *) 0,                    // use default attributes
-                      counterThread,                  // thread function entry point
-                      ( void *)&( threadParams[ i ] ) // parameters to pass in
-                     );
+      threadParams[ i ].T = T[ i ] * NSEC_PER_MSEC;
+      threadParams[ i ].C = C[ i ] * NSEC_PER_MSEC;
 
    }
 
    // The  pthread_join() function waits for the thread specified by thread to terminate. If that thread
    // has already terminated, then pthread_join() returns immediately. The thread specified by thread
    // must be joinable.
+   uint32_t running = 1;
+   struct timespec mainStartTime = { 0, 0 };
+   struct timespec currentTime = { 0, 0 };
+   struct timespec mainDelta = { 0, 0 };
 
+   clock_gettime( CLOCK_REALTIME, &mainStartTime );
    for( i = 0; i < NUM_THREADS; i++ )
    {
+      threadParams[ i ].previousRelease = mainStartTime;
+
+      pthread_create( &threads[ i ],                  // pointer to thread descriptor
+                      ( void *) 0,                    // use default attributes
+                      counterThread,                  // thread function entry point
+                      ( void *)&( threadParams[ i ] ) // parameters to pass in
+                    );
+      syslog( LOG_MAKEPRI( LOG_USER, LOG_INFO ),
+               "Thread %d released iteration 1.\n", i );
       pthread_join( threads[ i ], NULL );
+   }
+   uint32_t iteration[ NUM_THREADS ] = { 1, 1, 1 };
+   while( running )
+   {
+      clock_gettime( CLOCK_REALTIME, &currentTime );
+
+      // The pthread_create() function starts a new thread in the calling process. The new thread starts
+      // execution by invoking start_routine(); arg is passed as the sole argument of start_routine().
+      for( i = 0; i < NUM_THREADS; i++ )
+      {
+         delta_t( &currentTime, &threadParams[ i ].previousRelease, &mainDelta );
+         if( ( threadParams[ i ].T ) > mainDelta.tv_nsec )
+         {
+            delta_t( &currentTime, &mainStartTime, &mainDelta );
+            syslog( LOG_MAKEPRI( LOG_USER, LOG_INFO ),
+               "Thread %d released iteration %d after %d ms from start.\n",
+               i, ++iteration[ i ], ( uint32_t ) mainDelta.tv_nsec / NSEC_PER_MSEC );
+
+            threadParams[ i ].previousRelease = currentTime;
+            pthread_create( &threads[ i ],                  // pointer to thread descriptor
+                            ( void *) 0,                    // use default attributes
+                            counterThread,                  // thread function entry point
+                            ( void *)&( threadParams[ i ] ) // parameters to pass in
+                           );
+            pthread_join( threads[ i ], NULL );
+         }
+      }
+
+      delta_t( &currentTime, &mainStartTime, &mainDelta );
+      if( mainDelta.tv_sec > 1 )
+      {
+         running = 0;
+      }
    }
 
    printf( "\nTEST COMPLETE\n" );
