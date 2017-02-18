@@ -6,6 +6,7 @@ de1: CC = arm-linux-gnueabihf-gcc
 de1: OUT = de1Clock
 CDEFS =
 CFLAGS = -O3 $(INCLUDE_DIRS) $(CDEFS)
+LFLAGS = -lm
 LIBS =
 
 OBJS = ${SRCS:.c=.o}
@@ -22,10 +23,10 @@ distclean:
 de1: clean all upload
 
 upload:
-	scp *.out ubuntu@192.168.1.27:/home/ubuntu/bin
+	scp *.out tyler@192.168.1.35:/home/tyler/bin
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $*.c $(INCLUDES) -o $@
 
 %.out: %.o
-	$(CC) $(CFLAGS) -o $@ $*.o -lpthread
+	$(CC) $(CFLAGS) -o $@ $*.o -lpthread $(LFLAGS)
