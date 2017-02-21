@@ -64,21 +64,21 @@ int32_t main( void )
       {
       printf("C%d = %d T%d = %d", j + 1, wcet[ i ][ j ], j + 1, period[ i ][ j ] );
       if (j < numTasks[i] - 1)
-        {
-        printf(", ");
-        }
+	{
+	printf(", ");
+	}
       }
     printf( "\n" );
     printf("  Completion Test is%sFeasible\n",
-           completion_time_feasibility( numTasks[ i ], period[ i ], wcet[ i ], period[ i ] ) ? " " : " not " );
+	   completion_time_feasibility( numTasks[ i ], period[ i ], wcet[ i ], period[ i ] ) ? " " : " not " );
     printf("  Scheduling Point is%sFeasible\n",
-           scheduling_point_feasibility( numTasks[ i ], period[ i ], wcet[ i ], period[ i ] ) ? " " : " not " );
+	   scheduling_point_feasibility( numTasks[ i ], period[ i ], wcet[ i ], period[ i ] ) ? " " : " not " );
     printf("  DM is%sFeasible\n",
-           dm_feasibility( numTasks[ i ], period[ i ], wcet[ i ], period[ i ] ) ? " " : " not " );
+	   dm_feasibility( numTasks[ i ], period[ i ], wcet[ i ], period[ i ] ) ? " " : " not " );
     printf("  EDF is%sFeasible\n",
-           edf_feasibility( numTasks[ i ], period[ i ], wcet[ i ], period[ i ] ) ? " " : " not " );
-    //printf("  LLF is%sFeasible\n",
-    //       llf_feasibility( numTasks[ i ], period[ i ], wcet[ i ], period[ i ] ) ? " " : " not " );
+	   edf_feasibility( numTasks[ i ], period[ i ], wcet[ i ], period[ i ] ) ? " " : " not " );
+    printf("  LLF is%sFeasible\n",
+	   llf_feasibility( numTasks[ i ], period[ i ], wcet[ i ], period[ i ] ) ? " " : " not " );
     if (i < NUM_EXAMPLES - 1)
       {
       printf("\n\n");
@@ -112,18 +112,18 @@ int32_t completion_time_feasibility( uint32_t numServices, uint32_t *period, uin
       anext = wcet[ i ];
 
       for ( j = 0; j < i; j++ )
-        {
-        anext += ceil( ( ( double )an ) / ( ( double )period[ j ] ) ) * wcet[ j ];
-        }
+	{
+	anext += ceil( ( ( double )an ) / ( ( double )period[ j ] ) ) * wcet[ j ];
+	}
 
       if ( anext == an )
-        {
-        break;
-        }
+	{
+	break;
+	}
       else
-        {
-        an = anext;
-        }
+	{
+	an = anext;
+	}
       }
 
     if ( an > deadline[ i ] )
@@ -148,25 +148,25 @@ int32_t scheduling_point_feasibility(uint32_t numServices, uint32_t *period, uin
     for ( k = 0; k <= i; k++ )
       {
       for ( l = 1; l <= ( floor( ( double ) period[ i ] / ( double ) period[ k ] ) ); l++)
-        {
-        temp = 0;
+	{
+	temp = 0;
 
-        for ( j = 0; j <= i; j++ )
-          {
-          temp += wcet[j] * ceil( ( double ) l * ( double ) period[ k ] / ( double ) period[ j ] );
-          }
+	for ( j = 0; j <= i; j++ )
+	  {
+	  temp += wcet[j] * ceil( ( double ) l * ( double ) period[ k ] / ( double ) period[ j ] );
+	  }
 
-        if ( temp <= ( l * period[ k ] ) )
-          {
-          status = 1;
-          break;
-          }
-        }
+	if ( temp <= ( l * period[ k ] ) )
+	  {
+	  status = 1;
+	  break;
+	  }
+	}
 
       if ( status )
-        {
-        break;
-        }
+	{
+	break;
+	}
       }
 
     if ( !status )
