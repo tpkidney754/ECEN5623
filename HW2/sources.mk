@@ -1,2 +1,3 @@
 SRCS = \
-		 hw2.c \
+		 waitingthread.c \
+		 unlockingthread.c \
