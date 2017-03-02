@@ -7,7 +7,7 @@ de1: OUT = de1Clock
 CDEFS =
 CFLAGS = -O3 $(INCLUDE_DIRS) $(CDEFS)
 LFLAGS = -lm
-LIBS =
+LIBS =-lpthread -lrt
 
 OBJS = ${SRCS:.c=.o}
 OUT = ${OBJS:.o=.out}
@@ -29,4 +29,4 @@ upload:
 	$(CC) $(CFLAGS) -c $*.c $(INCLUDES) -o $@
 
 %.out: %.o
-	$(CC) $(CFLAGS) -o $@ $*.o -lpthread $(LFLAGS)
+	$(CC) $(CFLAGS) -o $@ $*.o -lpthread $(LFLAGS) $(LIBS)
