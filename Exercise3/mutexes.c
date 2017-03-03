@@ -84,7 +84,7 @@ void UpdateAttitude( void* argument )
    // Getting the time when the data is updated and is used to create random numbers.
    clock_gettime( clock, &attitude.sampleTime );
    srand( ( unsigned ) attitude.sampleTime.tv_nsec );
-q
+
    attitude.x            = rand( ) + ( ( double ) rand( ) / ( double ) RAND_MAX );
    attitude.y            = rand( ) + ( ( double ) rand( ) / ( double ) RAND_MAX );
    attitude.z            = rand( ) + ( ( double ) rand( ) / ( double ) RAND_MAX );
