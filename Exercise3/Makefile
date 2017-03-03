@@ -5,7 +5,7 @@ host: CC = gcc
 de1: CC = arm-linux-gnueabihf-gcc
 de1: OUT = de1Clock
 CDEFS =
-CFLAGS = -O3 $(INCLUDE_DIRS) $(CDEFS)
+CFLAGS = -w -O3 $(INCLUDE_DIRS) $(CDEFS) -g -DLINUX
 LFLAGS = -lm
 LIBS =-lpthread -lrt
 
