@@ -1,5 +1,6 @@
 SRCS = \
  		mutexes.c \
+ 		timedmutexes.c \
  		posix_mq.c \
  		deadlock.c \
  		pthread3.c \
