@@ -1,28 +1,4 @@
-#include <stdlib.h>
-#include <pthread.h>
-#include <stdio.h>
-#include <semaphore.h>
-#include <sys/sem.h>
-#include <assert.h>
-#include <unistd.h>
-#include <time.h>
-
-#define NUM_THREADS     2
-
-typedef struct
-{
-   double x;
-   double y;
-   double z;
-   double acceleration;
-   double roll;
-   double pitch;
-   double yaw;
-   struct timespec sampleTime;
-} Attitude_t;
-
-Attitude_t attitude;
-pthread_mutex_t attitudeMut = PTHREAD_MUTEX_INITIALIZER;
+#include "mutexes.h"
 
 void UpdateAttitude( );
 void ReadAttitude( );
@@ -37,20 +13,22 @@ int main( int argc, char** argv )
    int thread_args[ NUM_THREADS ];
    int result_code;
    unsigned index;
+   char log [10] = "[ MAIN ]";
 
-   attitude.x            = 0;
-   attitude.y            = 0;
-   attitude.z            = 0;
-   attitude.acceleration = 0;
-   attitude.roll         = 0;
-   attitude.pitch        = 0;
-   attitude.yaw          = 0;
+   attitude.valid		 = 0;
+//   attitude.x            = 0;
+//   attitude.y            = 0;
+//   attitude.z            = 0;
+//   attitude.acceleration = 0;
+//   attitude.roll         = 0;
+//   attitude.pitch        = 0;
+//   attitude.yaw          = 0;
 
    // create all threads one by one
    for( index = 0; index < NUM_THREADS; ++index )
    {
       thread_args[ index ] = index;
-      printf("In main: creating thread %d\n", index);
+      printf( "%s Creating thread %d\n", log_time(log) ,index );
       result_code = pthread_create( &threads[ index ],
                                     NULL,
                                     ThreadFunctions[ index ],
@@ -64,19 +42,22 @@ int main( int argc, char** argv )
       // block until thread 'index' completes
       result_code = pthread_join( threads[ index ], NULL );
       assert( !result_code );
-      printf( "In main: thread %d has completed\n", index );
+      printf( "%s Thread %d has completed\n",log_time(log) ,index );
    }
 
-   printf( "In main: All threads completed successfully\n" );
+   printf( "%s All threads completed successfully\n",log_time(log) );
    exit( EXIT_SUCCESS );
 }
 
 void UpdateAttitude( void* argument )
 {
-   printf( "Attitude data is being updated\n" );
+   char log[10] = "[UPDATE]";
    clockid_t clock;
    // Locking the access to the attitude structure
+   printf( "%s Waiting for lock.\n",log_time(log) );
    pthread_mutex_lock( &attitudeMut );
+   printf( "%s Lock obtained.\n",log_time(log) );
+   printf( "%s Attitude data is being updated\n",log_time(log) );
    // The sleep will help show that the mutex is working.
    // Thread 2 that reads is running is waiting for the mutex to unlock
    // If the mutex is not used, then the ReadAttitude thread always reads 0's
@@ -92,22 +73,57 @@ void UpdateAttitude( void* argument )
    attitude.roll         = rand( ) + ( ( double ) rand( ) / ( double ) RAND_MAX );
    attitude.pitch        = rand( ) + ( ( double ) rand( ) / ( double ) RAND_MAX );
    attitude.yaw          = rand( ) + ( ( double ) rand( ) / ( double ) RAND_MAX );
+   attitude.valid = 1;
+   printf( "%s Update complete.\n",log_time(log) );
+   printf( "%s Releasing lock.\n",log_time(log) );
    pthread_mutex_unlock( &attitudeMut );
+   sleep( 1 );
 }
 
 void ReadAttitude( )
 {
-   printf( "Reading Attitude data\n" );
-   pthread_mutex_lock( &attitudeMut );
-   printf( "Attitude data:\n \
-            x            = %lf\n \
-            y            = %lf\n \
-            z            = %lf\n \
-            acceleration = %lf\n \
-            roll         = %lf\n \
-            pitch        = %lf\n \
-            yaw          = %lf\n",
-            attitude.x, attitude.y, attitude.z, attitude.acceleration,
-            attitude.roll, attitude.pitch, attitude.yaw );
-   pthread_mutex_unlock( &attitudeMut );
+   char log[10] = "[READER]";
+   int  read_complete = 0;
+   struct tm *attitude_timestamp;
+
+   while(read_complete == 0){
+      printf( "%s Waiting for lock.\n",log_time(log) );
+      pthread_mutex_lock( &attitudeMut );
+      printf( "%s Lock obtained.\n",log_time(log) );
+      sleep(1); //Allows for the other thread to show it is being blocked
+      if(attitude.valid){
+         attitude_timestamp = localtime( &attitude.sampleTime );
+         printf( "%s Data valid\n",log_time(log) );
+         printf( "%s Reading Attitude data\n",log_time(log) );
+         printf( "%s Attitude data:\n"
+                  "\t\t\t\ttimestamp    = %02d:%02d:%02d.%lu\n"
+                  "\t\t\t\tx            = %lf\n"
+                  "\t\t\t\ty            = %lf\n"
+                  "\t\t\t\tz            = %lf\n"
+                  "\t\t\t\tacceleration = %lf\n"
+                  "\t\t\t\troll         = %lf\n"
+                  "\t\t\t\tpitch        = %lf\n"
+                  "\t\t\t\tyaw          = %lf\n",
+                  log_time(log),
+                  attitude_timestamp->tm_hour,
+                  attitude_timestamp->tm_min,
+                  attitude_timestamp->tm_sec,
+                  attitude.sampleTime.tv_nsec,
+                  attitude.x,
+                  attitude.y,
+                  attitude.z,
+                  attitude.acceleration,
+                  attitude.roll,
+                  attitude.pitch,
+                  attitude.yaw 
+               );
+         read_complete = 1;
+         printf( "%s Read complete.\n",log_time(log) );
+      }else{
+         printf( "%s Data not valid\n",log_time(log) );
+      }
+      printf( "%s Releasing lock.\n",log_time(log) );
+      pthread_mutex_unlock( &attitudeMut );
+      sleep(1);
+   }
 }
