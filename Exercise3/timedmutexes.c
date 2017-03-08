@@ -1,3 +1,5 @@
+//All required headers, function definitions, 
+//  global variables moved to mutexex.h
 #include "mutexes.h"
 
 void UpdateAttitude( );
@@ -15,14 +17,9 @@ int main( int argc, char** argv )
    unsigned index;
    char log[10] = "[ MAIN ]";
 
+   //Only require valid = 0
+   //if valid = 0, data assumed not valid
    attitude.valid		 = 0;
-//   attitude.x            = 0;
-//   attitude.y            = 0;
-//   attitude.z            = 0;
-//   attitude.acceleration = 0;
-//   attitude.roll         = 0;
-//   attitude.pitch        = 0;
-//   attitude.yaw          = 0;
 
    // create all threads one by one
    for( index = 0; index < NUM_THREADS; ++index )
@@ -59,7 +56,10 @@ void UpdateAttitude( void* argument )
       pthread_mutex_lock( &attitudeMut );
       printf( "%s Lock obtained.\n",log_time(log) );
       printf( "%s Attitude data is being updated\n",log_time(log) );
-      sleep( 14 );
+      //Discussed randomizing sleep value between 5 to 15 seconds 
+      //to show vary updating time but decided to leave to
+      //always show the timelock timeout
+      sleep( 14 );   
       // The sleep will help show that the mutex is working.
       // Thread 2 that reads is running is waiting for the mutex to unlock
       // If the mutex is not used, then the ReadAttitude thread always reads 0's

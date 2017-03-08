@@ -1,3 +1,5 @@
+//All required headers, function definitions, 
+//  global variables moved to mutexex.h
 #include "mutexes.h"
 
 void UpdateAttitude( );
@@ -15,14 +17,9 @@ int main( int argc, char** argv )
    unsigned index;
    char log [10] = "[ MAIN ]";
 
+   //Only require valid = 0
+   //if valid = 0, data assumed not valid
    attitude.valid		 = 0;
-//   attitude.x            = 0;
-//   attitude.y            = 0;
-//   attitude.z            = 0;
-//   attitude.acceleration = 0;
-//   attitude.roll         = 0;
-//   attitude.pitch        = 0;
-//   attitude.yaw          = 0;
 
    // create all threads one by one
    for( index = 0; index < NUM_THREADS; ++index )
@@ -73,7 +70,7 @@ void UpdateAttitude( void* argument )
    attitude.roll         = rand( ) + ( ( double ) rand( ) / ( double ) RAND_MAX );
    attitude.pitch        = rand( ) + ( ( double ) rand( ) / ( double ) RAND_MAX );
    attitude.yaw          = rand( ) + ( ( double ) rand( ) / ( double ) RAND_MAX );
-   attitude.valid = 1;
+   attitude.valid = 1;  //Data now valid for reading
    printf( "%s Update complete.\n",log_time(log) );
    printf( "%s Releasing lock.\n",log_time(log) );
    pthread_mutex_unlock( &attitudeMut );
@@ -91,6 +88,7 @@ void ReadAttitude( )
       pthread_mutex_lock( &attitudeMut );
       printf( "%s Lock obtained.\n",log_time(log) );
       sleep(1); //Allows for the other thread to show it is being blocked
+      //Checks if data in struct is valid
       if(attitude.valid){
          attitude_timestamp = localtime( &attitude.sampleTime );
          printf( "%s Data valid\n",log_time(log) );
