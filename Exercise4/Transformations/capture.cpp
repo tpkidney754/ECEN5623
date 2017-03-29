@@ -1,17 +1,24 @@
 #include "capture.hpp"
 
 // Transform display window
+static void* ( *Transformation[ NUM_TRANS ] )( void * ) =
+               { ShowRaw,
+                 CannyThreshold,
+                 HoughLines,
+                 HoughCircles };
 
-
-int32_t lowThreshold = LOW_THRESHOLD;
-int32_t const max_lowThreshold = MAX_LOW_THRESHOLD;
-char timg_window_name[] = "Edge Detector Transform";
+int lowThreshold = 0;
+IplImage* frame;
 
 int32_t main( int argc, char** argv )
 {
     CvCapture* capture;
     uint32_t dev = 0;
-    IplImage* frame;
+    uint32_t index = 0;
+    pthread_t thread;
+    int thread_args = 0;
+    int result_code;
+    char q;
 
     if( argc > 1 )
     {
@@ -28,17 +35,15 @@ int32_t main( int argc, char** argv )
         exit( -1 );
     }
 
-    namedWindow( timg_window_name, CV_WINDOW_AUTOSIZE );
-    // Create a Trackbar for user to enter threshold
-    createTrackbar( "Min Threshold:", timg_window_name, &lowThreshold, max_lowThreshold, CannyThreshold );
-
+    namedWindow( "Main Window", WINDOW_AUTOSIZE );
     capture = (CvCapture *)cvCreateCameraCapture( dev );
+
     cvSetCaptureProperty( capture, CV_CAP_PROP_FRAME_WIDTH, HRES );
     cvSetCaptureProperty( capture, CV_CAP_PROP_FRAME_HEIGHT, VRES );
 
-
     while( 1 )
     {
+
         frame = cvQueryFrame( capture );
 
         if( frame == NULL )
@@ -46,24 +51,39 @@ int32_t main( int argc, char** argv )
             break;
         }
 
-        //CannyThreshold( 0, frame );
-        ShowRaw( 0, frame );
 
-        char q = cvWaitKey( 33 );
+        pthread_create( &thread,
+                        NULL,
+                        Transformation[ index ],
+                        &thread_args );
+
+        pthread_join( thread, NULL );
+
+        q = cvWaitKey( 33 );
         if( q == 'q' )
         {
             printf("got quit\n");
             break;
         }
+        else if( q >= '0' && q < ( NUM_TRANS + '0' ) )
+        {
+            index = q - '0';
+        }
     }
 
     cvReleaseCapture( &capture );
-
 }
 
-void CannyThreshold( int, void* frame )
+void *ShowRaw( void * )
 {
-    Mat mat_frame( ( IplImage* ) frame );
+    Mat raw( frame );
+
+    imshow( "Main Window", raw );
+}
+
+void *CannyThreshold( void * )
+{
+    Mat mat_frame( frame );
     Mat canny_frame, timg_gray, timg_grad;
 
     cvtColor( mat_frame, timg_gray, CV_RGB2GRAY );
@@ -79,16 +99,53 @@ void CannyThreshold( int, void* frame )
 
     mat_frame.copyTo( timg_grad, canny_frame );
 
-    imshow( timg_window_name, timg_grad );
+    imshow( "Main Window", timg_grad );
 
 }
 
-void ShowRaw( int, void* frame )
+void *HoughLines( void * )
 {
-    Mat mat_frame( ( IplImage* ) frame );
-    Mat raw;
+    Mat mat_frame(frame);
+    Mat canny_frame;
+    vector<Vec4i> lines;
 
-    //raw = Scalar::all( 0 );
-    //mat_frame.copyTo( )
-    imshow( timg_window_name, mat_frame );
+    Canny( mat_frame, canny_frame, 50, 200, 3 );
+
+    //cvtColor(canny_frame, cdst, CV_GRAY2BGR);
+    //cvtColor(mat_frame, gray, CV_BGR2GRAY);
+
+    HoughLinesP( canny_frame, lines, 1, CV_PI / 180, 50, 50, 10 );
+
+    for( size_t i = 0; i < lines.size(); i++ )
+    {
+        Vec4i l = lines[i];
+        line( mat_frame, Point( l[ 0 ], l[ 1 ] ), Point( l[ 2 ], l[ 3 ] ), Scalar( 0, 0, 255 ), 3, CV_AA );
+    }
+
+    imshow( "Main Window", mat_frame );
+}
+
+void *HoughCircles( void * )
+{
+    Mat mat_frame( frame );
+    Mat gray;
+    vector<Vec3f> circles;
+
+    cvtColor( mat_frame, gray, CV_BGR2GRAY );
+    GaussianBlur( gray, gray, Size( 9, 9 ), 2, 2 );
+
+    HoughCircles(gray, circles, CV_HOUGH_GRADIENT, 1, gray.rows / 8, 100, 50, 0, 0);
+
+    for( size_t i = 0; i < circles.size( ); i++ )
+    {
+      Point center(cvRound(circles[i][0]), cvRound(circles[i][1]));
+      int radius = cvRound(circles[i][2]);
+      // circle center
+      circle( mat_frame, center, 3, Scalar(0,255,0), -1, 8, 0 );
+      // circle outline
+      circle( mat_frame, center, radius, Scalar(0,0,255), 3, 8, 0 );
+    }
+
+    imshow( "Main Window", mat_frame );
+
 }
