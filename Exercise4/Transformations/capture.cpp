@@ -26,6 +26,7 @@ int32_t main( int argc, char** argv )
     uint32_t totalFrames = 0;
     uint32_t seconds = 0;
     float average = 0.0;
+    uint32_t res = 0;
 
     openlog( NULL, LOG_CONS, LOG_USER );
 
@@ -47,8 +48,8 @@ int32_t main( int argc, char** argv )
     namedWindow( "Main Window", WINDOW_AUTOSIZE );
     capture = (CvCapture *)cvCreateCameraCapture( dev );
 
-    cvSetCaptureProperty( capture, CV_CAP_PROP_FRAME_WIDTH, HRES );
-    cvSetCaptureProperty( capture, CV_CAP_PROP_FRAME_HEIGHT, VRES );
+    cvSetCaptureProperty( capture, CV_CAP_PROP_FRAME_WIDTH, hres[ res ] );
+    cvSetCaptureProperty( capture, CV_CAP_PROP_FRAME_HEIGHT, vres[ res ] );
 
     clock_gettime( CLOCK_REALTIME, &currentTime );
     startTime = currentTime;
@@ -87,8 +88,8 @@ int32_t main( int argc, char** argv )
             startTime.tv_sec += 1;
             frames = 0;
             syslog( LOG_MAKEPRI( LOG_USER, LOG_INFO ),
-              "%s FPS: %f at time %ld:%ld\n",
-              transformationName[ index ], average, currentTime.tv_sec, currentTime.tv_nsec );
+              "%s FPS: %f for resolution: %dx%d at time %ld:%ld\n",
+              transformationName[ index ], average, hres[ res ], vres[ res ], currentTime.tv_sec, currentTime.tv_nsec );
             if( seconds >= 10 )
             {
                 frames = 0;
@@ -98,8 +99,16 @@ int32_t main( int argc, char** argv )
                 startTime = currentTime;
                 if( index == NUM_TRANS - 1 )
                 {
-                    
-                    break;
+                    if( res == NUM_RES - 1 )
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        cvSetCaptureProperty( capture, CV_CAP_PROP_FRAME_WIDTH, hres[ ++res ] );
+                        cvSetCaptureProperty( capture, CV_CAP_PROP_FRAME_HEIGHT, vres[ res ] );
+                        index = 0;
+                    }
                 }
                 else
                 {

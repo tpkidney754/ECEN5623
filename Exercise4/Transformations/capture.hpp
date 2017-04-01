@@ -15,13 +15,12 @@
 using namespace cv;
 using namespace std;
 
-#define HRES                1280
-#define VRES                960
 #define RATIO               3
 #define KERNEL_SIZE         3
 #define MAX_LOW_THRESHOLD   100
 #define NUM_TRANS           4
 #define MAX_STRING_LENGTH   25
+#define NUM_RES             3
 
 uint8_t transformationName[ NUM_TRANS ][ MAX_STRING_LENGTH ] = 
 {
@@ -30,6 +29,9 @@ uint8_t transformationName[ NUM_TRANS ][ MAX_STRING_LENGTH ] =
 	"Hough Lines",
 	"HoughCircles"
 };
+
+uint32_t hres[ NUM_RES ] = { 320, 640, 1280 };
+uint32_t vres[ NUM_RES ] = { 240, 480, 960  };
 
 void *ShowRaw( void * );
 void *CannyThreshold( void * );
