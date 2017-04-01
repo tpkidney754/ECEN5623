@@ -9,6 +9,9 @@ static void* ( *Transformation[ NUM_TRANS ] )( void * ) =
 
 int lowThreshold = 0;
 IplImage* frame;
+struct timespec currentTime;
+struct timespec startTime;
+struct timespec calculateTime;
 
 int32_t main( int argc, char** argv )
 {
@@ -19,6 +22,12 @@ int32_t main( int argc, char** argv )
     int thread_args = 0;
     int result_code;
     char q;
+    uint32_t frames = 0;
+    uint32_t totalFrames = 0;
+    uint32_t seconds = 0;
+    float average = 0.0;
+
+    openlog( NULL, LOG_CONS, LOG_USER );
 
     if( argc > 1 )
     {
@@ -41,6 +50,14 @@ int32_t main( int argc, char** argv )
     cvSetCaptureProperty( capture, CV_CAP_PROP_FRAME_WIDTH, HRES );
     cvSetCaptureProperty( capture, CV_CAP_PROP_FRAME_HEIGHT, VRES );
 
+    clock_gettime( CLOCK_REALTIME, &currentTime );
+    startTime = currentTime;
+    calculateTime = currentTime;
+    calculateTime.tv_sec += 10;
+
+    syslog( LOG_MAKEPRI( LOG_USER, LOG_INFO ),
+              "Starting Log\n" );
+
     while( 1 )
     {
 
@@ -59,6 +76,39 @@ int32_t main( int argc, char** argv )
 
         pthread_join( thread, NULL );
 
+        frames++;
+        clock_gettime( CLOCK_REALTIME, &currentTime );
+        if( currentTime.tv_sec > startTime.tv_sec && currentTime.tv_nsec > startTime.tv_nsec )
+        {
+            totalFrames += frames;
+            seconds += ( currentTime.tv_sec - startTime.tv_sec );
+            average = 1.0 * totalFrames / seconds;
+        
+            startTime.tv_sec += 1;
+            frames = 0;
+            syslog( LOG_MAKEPRI( LOG_USER, LOG_INFO ),
+              "%s FPS: %f at time %ld:%ld\n",
+              transformationName[ index ], average, currentTime.tv_sec, currentTime.tv_nsec );
+            if( seconds >= 10 )
+            {
+                frames = 0;
+                seconds = 0;
+                totalFrames = 0;
+                clock_gettime( CLOCK_REALTIME, &currentTime );
+                startTime = currentTime;
+                if( index == NUM_TRANS - 1 )
+                {
+                    
+                    break;
+                }
+                else
+                {
+                    index++;
+                }
+            }
+
+        }
+
         q = cvWaitKey( 33 );
         if( q == 'q' )
         {
@@ -68,9 +118,14 @@ int32_t main( int argc, char** argv )
         else if( q >= '0' && q < ( NUM_TRANS + '0' ) )
         {
             index = q - '0';
+            totalFrames = 0;
+            frames = 0;
+            seconds = 0;
+            clock_gettime( CLOCK_REALTIME, &currentTime );
+            startTime = currentTime;
         }
     }
-
+    closelog();
     cvReleaseCapture( &capture );
 }
 
