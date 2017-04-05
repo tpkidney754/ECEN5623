@@ -272,6 +272,7 @@ void *ShowRaw( void * )
 {
     cpu_set_t aff;
     CPU_SET(0, &aff);
+
     if(pthread_setaffinity_np(pthread_self(), sizeof(aff), &aff) < 0)
     {
         perror("setting affinity");
@@ -293,12 +294,13 @@ void *ShowRaw( void * )
     endTimeRaw = currentTime;
 
     delta_t(&endTimeRaw, &startTimeRaw, &calculateTime);
-    printf("calculateTime is %ld & %ld\n", calculateTime.tv_sec, calculateTime.tv_nsec);
+    syslog( LOG_MAKEPRI( LOG_USER, LOG_INFO ),
+            "Raw calculateTime is %ld & %ld\n", calculateTime.tv_sec, calculateTime.tv_nsec );
 
     avg_raw += deadlineRaw - calculateTime.tv_nsec;
     cnt_raw++;
 
-    printf("Jitter for Raw is: %f\n", (double)(avg_raw/cnt_raw));
+    syslog( LOG_MAKEPRI( LOG_USER, LOG_INFO ), "Jitter for Raw is: %f\n", ( double )( avg_raw / cnt_raw ) );
 
     sem_post(&sem_canny);
 }
@@ -308,11 +310,11 @@ void *CannyThreshold( void * )
     int deadlineCanny = 70000000;
     cpu_set_t aff;
     CPU_SET(0, &aff);
+
     if(pthread_setaffinity_np(pthread_self(), sizeof(aff), &aff) < 0)
     {
         perror("setting affinity");
     }
-
 
     sem_wait(&sem_canny);
 
@@ -342,7 +344,7 @@ void *CannyThreshold( void * )
     endTimeCanny = currentTime;
 
     delta_t(&endTimeCanny, &startTimeCanny, &calculateTime);
-    printf("calculateTime for canny is %ld & %ld\n", calculateTime.tv_sec, calculateTime.tv_nsec);
+    syslog( LOG_MAKEPRI( LOG_USER, LOG_INFO ), "calculateTime for canny is %ld & %ld\n", calculateTime.tv_sec, calculateTime.tv_nsec);
 
     avg_canny += deadlineCanny - calculateTime.tv_nsec;
     cnt_canny++;
@@ -367,8 +369,8 @@ void *HoughLines( void * )
     frame = cvQueryFrame( capture );
     if( frame == NULL )
     {
-	printf("Breaking\n");
-        exit(-1);
+	   printf("Breaking\n");
+       exit(-1);
     }
 
     sem_wait(&sem_hough);
@@ -400,12 +402,12 @@ void *HoughLines( void * )
     endTimeHough = currentTime;
 
     delta_t(&endTimeHough, &startTimeHough, &calculateTime);
-    printf("calculateTime for hough is %ld & %ld\n", calculateTime.tv_sec, calculateTime.tv_nsec);
+    syslog( LOG_MAKEPRI( LOG_USER, LOG_INFO ),"calculateTime for hough is %ld & %ld\n", calculateTime.tv_sec, calculateTime.tv_nsec);
 
     avg_hough += deadlineHough - calculateTime.tv_nsec;
     cnt_hough++;
 
-    printf("Jitter for Hough is: %f\n", (double)(avg_hough/cnt_hough));
+    syslog( LOG_MAKEPRI( LOG_USER, LOG_INFO ),"Jitter for Hough is: %f\n", (double)(avg_hough/cnt_hough));
 
     sem_post(&sem_houghE);
 }
@@ -450,13 +452,12 @@ void *HoughCircles( void * )
     endTimeHoughE = currentTime;
 
     delta_t(&endTimeHoughE, &startTimeHoughE, &calculateTime);
-    printf("calculateTime for HoughE is %ld & %ld\n", calculateTime.tv_sec, calculateTime.tv_nsec);
+    syslog( LOG_MAKEPRI( LOG_USER, LOG_INFO ),"calculateTime for HoughE is %ld & %ld\n", calculateTime.tv_sec, calculateTime.tv_nsec);
 
     avg_houghE += deadlineHoughE - calculateTime.tv_nsec;
     cnt_houghE++;
 
-    printf("Jitter for HoughE is: %f\n", (double)(avg_houghE/cnt_houghE));
-
+    syslog( LOG_MAKEPRI( LOG_USER, LOG_INFO ),"Jitter for HoughE is: %f\n", (double)(avg_houghE/cnt_houghE));
 
     sem_post(&sem_raw);
 }
