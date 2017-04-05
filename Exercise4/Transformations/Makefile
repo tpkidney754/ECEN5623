@@ -7,23 +7,23 @@ CFLAGS= -O0 -pg -g $(INCLUDE_DIRS) $(CDEFS)
 LIBS=-lpthread -lrt
 CPPLIBS= -L/usr/lib -lopencv_core -lopencv_flann -lopencv_video
 
-HFILES=capture.hpp
+HFILES=fps_capture.hpp
 CFILES=
-CPPFILES= capture.cpp
+CPPFILES= fps_capture.cpp
 
 SRCS= ${HFILES} ${CFILES}
 CPPOBJS= ${CPPFILES:.cpp=.o}
 
-all:	capture
+all:	fps_capture
 
 clean:
 	-rm -f *.o *.d
-	-rm -f capture
+	-rm -f fps_capture
 
 distclean:
 	-rm -f *.o *.d
 
-capture: capture.o
+fps_capture: fps_capture.o
 	$(CC) $(LDFLAGS) $(CFLAGS) -o $@ $@.o `pkg-config --libs opencv` $(CPPLIBS) $(LIBS)
 
 depend:

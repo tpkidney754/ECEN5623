@@ -1,4 +1,4 @@
-#include "capture.hpp"
+#include "fps_capture.hpp"
 
 // Transform display window
 static void* ( *Transformation[ NUM_TRANS ] )( void * ) =
@@ -84,7 +84,7 @@ int32_t main( int argc, char** argv )
             totalFrames += frames;
             seconds += ( currentTime.tv_sec - startTime.tv_sec );
             average = 1.0 * totalFrames / seconds;
-        
+
             startTime.tv_sec += 1;
             frames = 0;
             syslog( LOG_MAKEPRI( LOG_USER, LOG_INFO ),
